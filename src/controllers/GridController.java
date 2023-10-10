@@ -21,7 +21,7 @@ public class GridController {
     public void createMatrix() {
         Scanner scanner = null;
         try {
-            File meshFile = new File(gridTable.getFilesPath() + gridTable.getFileName());
+            File meshFile = new File(gridTable.getMeshesPath() + gridTable.getFileName());
             scanner = new Scanner(meshFile);
         } catch (FileNotFoundException e) {
             e.printStackTrace();

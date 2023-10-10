@@ -7,7 +7,7 @@ import javax.swing.table.AbstractTableModel;
 import java.nio.file.Paths;
 
 public class GridTable extends AbstractTableModel{
-    private static final String FILES_PATH =  Paths.get("").toAbsolutePath() +"/src/files/";
+    private static final String MESHES_PATH =  Paths.get("").toAbsolutePath() +"/src/meshes/";
 
     private int rows;
     private int columns;
@@ -53,8 +53,8 @@ public class GridTable extends AbstractTableModel{
         this.columns = columns;
     }
 
-    public static String getFilesPath() {
-        return FILES_PATH;
+    public static String getMeshesPath() {
+        return MESHES_PATH;
     }
 
     public String getFileName() {
