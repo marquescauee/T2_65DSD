@@ -191,49 +191,48 @@ public class Vehicle extends Thread {
             case 9: {
                 if (intersectionsFound == 3) {
                     return this.roadConnection[currentRow + 1][currentColumn];
+                }
+
+                if (side == 0) {
+                    return this.roadConnection[currentRow][currentColumn - 1];
                 } else {
-                    if (side == 0) {
-                        return this.roadConnection[currentRow][currentColumn - 1];
-                    } else {
-                        return this.roadConnection[currentRow + 1][currentColumn];
-                    }
+                    return this.roadConnection[currentRow + 1][currentColumn];
                 }
             }
             case 10: {
                 if (intersectionsFound == 3) {
                     return this.roadConnection[currentRow][currentColumn - 1];
+                }
+
+                if (side == 0) {
+                    return this.roadConnection[currentRow][currentColumn - 1];
                 } else {
-                    if (side == 0) {
-                        return this.roadConnection[currentRow][currentColumn - 1];
-                    } else {
-                        return this.roadConnection[currentRow - 1][currentColumn];
-                    }
+                    return this.roadConnection[currentRow - 1][currentColumn];
                 }
             }
             case 11: {
                 if (intersectionsFound == 3) {
                     return this.roadConnection[currentRow][currentColumn + 1];
+                }
+
+                if (side == 0) {
+                    return this.roadConnection[currentRow + 1][currentColumn];
                 } else {
-                    if (side == 0) {
-                        return this.roadConnection[currentRow + 1][currentColumn];
-                    } else {
-                        return this.roadConnection[currentRow][currentColumn + 1];
-                    }
+                    return this.roadConnection[currentRow][currentColumn + 1];
                 }
             }
             case 12: {
                 if (intersectionsFound == 3) {
                     return this.roadConnection[currentRow - 1][currentColumn];
-                } else {
-                    if (side == 0) {
-                        return this.roadConnection[currentRow][currentColumn + 1];
-                    } else {
-                        return this.roadConnection[currentRow - 1][currentColumn];
-                    }
                 }
+
+                if (side == 0) {
+                    return this.roadConnection[currentRow][currentColumn + 1];
+                }
+                    return this.roadConnection[currentRow - 1][currentColumn];
             }
             default:
-                throw new Exception("Error in road network assembly");
+                throw new Exception("Error in road connection assembly");
         }
     }
 
