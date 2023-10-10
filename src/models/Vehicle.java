@@ -1,13 +1,13 @@
 package models;
 
-import controllers.SimulationController;
+import observers.VehicleObserver;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 public class Vehicle extends Thread {
 
-    private SimulationController simulationController;
+    private Simulation simulation;
     private ArrayList<Road> route;
     private Road[][] roadConnection;
     private Random random = new Random();
@@ -16,13 +16,33 @@ public class Vehicle extends Thread {
     private boolean closed = false;
     private int type;
 
-    public Vehicle(SimulationController simulationController) {
-        this.simulationController = simulationController;
+    private ArrayList<VehicleObserver> observers = new ArrayList<>();
+
+    public Vehicle(Simulation simulation) {
+        this.simulation = simulation;
         this.route = new ArrayList<>();
-        this.roadConnection = simulationController.getRoadConnection();
+        this.roadConnection = simulation.getRoadConnection();
         this.speed = random.nextInt(100) + 500;
         this.type = random.nextInt(6) + 1;
         this.currentRoad = null;
+    }
+
+    public void addObserver(VehicleObserver observer){
+        observers.add(observer);
+    }
+
+    public void notifyVehicleRemoved(){
+        for (VehicleObserver v:
+             observers) {
+            v.vehicleHasBeenRemoved(this);
+        }
+    }
+
+    public void notifyVehicleMoved(Road newRoad){
+        for (VehicleObserver v :
+                observers) {
+            v.vehicleHasMoved(newRoad);
+        }
     }
 
     public void close() {
@@ -44,7 +64,7 @@ public class Vehicle extends Thread {
             }
             this.getCurrentRoad().removeVehicle();
             this.getCurrentRoad().release();
-            this.simulationController.removeVehicleFromGrid(this);
+            this.notifyVehicleRemoved();
             this.close();
         }
     }
@@ -110,7 +130,7 @@ public class Vehicle extends Thread {
                 previousRoad.release();
             }
             this.setCurrentRoad(nextRoad);
-            this.simulationController.updateCell(nextRoad);
+            this.notifyVehicleMoved(nextRoad);
             this.delay();
         }
     }
