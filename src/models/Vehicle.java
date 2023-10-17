@@ -58,7 +58,7 @@ public class Vehicle extends Thread {
                 if (route.get(nextPosition).isIntersection()) {
                     resolveIntersection();
                 } else {
-                    Road road = this.route.remove(nextPosition);
+                    Road road = this.route.get(nextPosition);
                     move(road, true);
                 }
             }
@@ -70,22 +70,21 @@ public class Vehicle extends Thread {
     }
 
     private void resolveIntersection() {
-        delay();
         ArrayList<Road> intersectionsToReserve = loadNecessaryIntersections();
         ArrayList<Road> reservedIntersections = attemptToReserveIntersections(intersectionsToReserve);
 
         if (reservedIntersections.size() == intersectionsToReserve.size()) {
             for (Road reservedIntersection : reservedIntersections) {
-                this.route.remove(reservedIntersection);
                 this.move(reservedIntersection, false);
             }
+        } else{
+             releaseRoadList(reservedIntersections);
         }
     }
 
     private ArrayList<Road> loadNecessaryIntersections() {
         ArrayList<Road> intersectionsToReserve = new ArrayList<>();
-        for (int i = 0; i < this.route.size(); i++) {
-            Road road = this.route.get(i);
+        for (Road road : this.route) {
             intersectionsToReserve.add(road);
             if (!road.isIntersection()) {
                 break;
@@ -132,6 +131,8 @@ public class Vehicle extends Thread {
             this.setCurrentRoad(nextRoad);
             this.notifyVehicleMoved(nextRoad);
             this.delay();
+
+            this.route.remove(nextRoad);
         }
     }
 

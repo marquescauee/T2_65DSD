@@ -17,8 +17,6 @@ public class Simulation extends Thread{
     public Simulation(int rowCount, int columnCount, Road[][] roadConnection,int intersectionInterval, int maxVehiclesSameTime){
         this.rowCount = rowCount;
         this.columnCount =columnCount;
-        this.vehiclesOnGrid = vehiclesOnGrid;
-        this.vehiclesInQueue = vehiclesInQueue;
         this.roadConnection = roadConnection;
         this.intersectionInterval = intersectionInterval;
         this.maxVehiclesSameTime = maxVehiclesSameTime;
