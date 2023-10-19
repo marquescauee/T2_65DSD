@@ -10,6 +10,7 @@ public class SimulationDTO {
     private String meshFileName;
     private int maxCarInMeshQuantitySameTime;
     private Method method;
+    private String methodString;
 
     public SimulationDTO(int carQuantity, int insertionInterval, String meshFileName, int maxCarInMeshQuantitySameTime, String methodString) {
         this.carQuantity = carQuantity;
@@ -21,10 +22,12 @@ public class SimulationDTO {
         }else {
             method = new SemaphoreMethod();
         }
+        this.methodString = methodString;
     }
 
-    public Method getMethod() {
-        return method;
+    public String getMethod() {
+        //return method;
+        return methodString;
     }
 
     public int getCarQuantity() {

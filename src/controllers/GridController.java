@@ -13,7 +13,7 @@ public class GridController {
 
     private GridTable gridTable;
     private RoadController roadController;
-    private Method method;
+    private String method;
 
     public GridController(SimulationDTO simulationDTO){
         gridTable = new GridTable(simulationDTO.getMeshFileName());

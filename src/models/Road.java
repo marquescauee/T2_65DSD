@@ -3,11 +3,13 @@ package models;
 import java.nio.file.Paths;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class Road {
 
     private static final String ICONS_PATH = Paths.get("").toAbsolutePath() + "/src/icons/";
-    //protected Semaphore semaphore;
+    protected Semaphore semaphore;
     protected String iconDirectory;
     protected boolean entry;
     protected boolean exit;
@@ -15,26 +17,49 @@ public class Road {
     protected Vehicle vehicle;
     protected int row;
     protected int column;
-    private Method method;
+    private String method;
+    private Lock lock;
 
-    public Road(int row, int column, int type, Method method) {
+    public Road(int row, int column, int type, String method) {
         this.vehicle = null;
         this.type = type;
         this.row = row;
         this.column = column;
         this.method = method;
+        if (method.equals("Monitor")){
+            lock = new ReentrantLock();
+        }else {
+            semaphore = new Semaphore(1);
+        }
         this.defineCurrentIcon();
     }
 
     public boolean tryAcquire() {
         boolean acquired = false;
-        acquired = this.method.tryAcquire(500, TimeUnit.MILLISECONDS);
+        if(method.equals("Monitor")){
+            try {
+                acquired = this.lock.tryLock(500, TimeUnit.MILLISECONDS);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }else {
+            try {
+                acquired = this.semaphore.tryAcquire(500, TimeUnit.MILLISECONDS);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
         return acquired;
     }
 
 
     public void release() {
-        this.method.release();
+        //this.method.release();
+        if(method.equals("Monitor")){
+            this.lock.unlock();
+        }else {
+            this.semaphore.release();
+        }
     }
 
     public void addVehicle(Vehicle vehicle) {
