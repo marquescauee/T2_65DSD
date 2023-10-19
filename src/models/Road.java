@@ -9,14 +9,14 @@ import java.util.concurrent.locks.ReentrantLock;
 public class Road {
 
     private static final String ICONS_PATH = Paths.get("").toAbsolutePath() + "/src/icons/";
-    private Semaphore semaphore;
-    private String iconDirectory;
-    private boolean entry;
-    private boolean exit;
-    private int type;
-    private Vehicle vehicle;
-    private int row;
-    private int column;
+    protected Semaphore semaphore;
+    protected String iconDirectory;
+    protected boolean entry;
+    protected boolean exit;
+    protected int type;
+    protected Vehicle vehicle;
+    protected int row;
+    protected int column;
     private String method;
     private Lock lock;
 
