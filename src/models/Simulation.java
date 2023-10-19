@@ -29,34 +29,30 @@ public class Simulation extends Thread{
     @Override
     public void run() {
         while (!this.closed) {
-            this.executeQueue();
-        }
-    }
+            while (!this.vehiclesInQueue.isEmpty()) {
+                for (int row = 0; row < this.rowCount; row++) {
+                    for (int col = 0; col < columnCount; col++) {
+                        Road entry = this.getRoadConnection()[col][row];
+                        if (entry.isEntry() && entry.isEmpty() && !this.vehiclesInQueue.isEmpty()
+                                && this.vehiclesOnGrid.size() < maxVehiclesSameTime) {
+                            try {
+                                Vehicle vehicle = this.vehiclesInQueue.remove();
+                                vehicle.setRoute(entry);
+                                this.addVehicleToGrid(vehicle);
+                                vehicle.start();
+                                this.sleepNextVehicle();
+                            } catch (Exception ignored) {
 
-    public void addVehicleToGrid(Vehicle vehicle) {
-        this.vehiclesOnGrid.add(vehicle);
-    }
-
-    private void executeQueue() {
-        while (!this.vehiclesInQueue.isEmpty()) {
-            for (int row = 0; row < this.rowCount; row++) {
-                for (int col = 0; col < columnCount; col++) {
-                    Road entry = this.getRoadConnection()[col][row];
-                    if (entry.isEntry() && entry.isEmpty() && !this.vehiclesInQueue.isEmpty()
-                            && this.vehiclesOnGrid.size() < maxVehiclesSameTime) {
-                        try {
-                            Vehicle vehicle = this.vehiclesInQueue.remove();
-                            vehicle.setRoute(entry);
-                            this.addVehicleToGrid(vehicle);
-                            vehicle.start();
-                            this.sleepNextVehicle();
-                        } catch (Exception ignored) {
-
+                            }
                         }
                     }
                 }
             }
         }
+    }
+
+    public void addVehicleToGrid(Vehicle vehicle) {
+        this.vehiclesOnGrid.add(vehicle);
     }
 
     private void sleepNextVehicle() throws InterruptedException {

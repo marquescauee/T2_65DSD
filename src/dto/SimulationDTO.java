@@ -9,7 +9,6 @@ public class SimulationDTO {
     private int insertionInterval;
     private String meshFileName;
     private int maxCarInMeshQuantitySameTime;
-    private Method method;
     private String methodString;
 
     public SimulationDTO(int carQuantity, int insertionInterval, String meshFileName, int maxCarInMeshQuantitySameTime, String methodString) {
@@ -17,11 +16,11 @@ public class SimulationDTO {
         this.insertionInterval = insertionInterval;
         this.meshFileName = meshFileName;
         this.maxCarInMeshQuantitySameTime = maxCarInMeshQuantitySameTime;
-        if(methodString.equals("Monitor")){
-           method = new MonitorMethod();
-        }else {
-            method = new SemaphoreMethod();
-        }
+//        if(methodString.equals("Monitor")){
+//           method = new MonitorMethod();
+//        }else {
+//            method = new SemaphoreMethod();
+//        }
         this.methodString = methodString;
     }
 

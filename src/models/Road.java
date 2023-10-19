@@ -9,14 +9,14 @@ import java.util.concurrent.locks.ReentrantLock;
 public class Road {
 
     private static final String ICONS_PATH = Paths.get("").toAbsolutePath() + "/src/icons/";
-    protected Semaphore semaphore;
-    protected String iconDirectory;
-    protected boolean entry;
-    protected boolean exit;
-    protected int type;
-    protected Vehicle vehicle;
-    protected int row;
-    protected int column;
+    private Semaphore semaphore;
+    private String iconDirectory;
+    private boolean entry;
+    private boolean exit;
+    private int type;
+    private Vehicle vehicle;
+    private int row;
+    private int column;
     private String method;
     private Lock lock;
 
@@ -40,33 +40,30 @@ public class Road {
             try {
                 acquired = this.lock.tryLock(500, TimeUnit.MILLISECONDS);
             } catch (InterruptedException e) {
-                //throw new RuntimeException(e);
             }
         }else {
             try {
                 acquired = this.semaphore.tryAcquire(500, TimeUnit.MILLISECONDS);
             } catch (InterruptedException e) {
-               // throw new RuntimeException(e);
             }
         }
         return acquired;
     }
 
 
+
     public void release() {
-        //this.method.release();
         try {
         if(method.equals("Monitor")){
-
             this.lock.unlock();
-
         }else {
             this.semaphore.release();
         }
         }catch (Exception e){
-            System.out.println(e.getMessage());
+           // throw de Exception aqui estraga tudo!
         }
     }
+
 
     public void addVehicle(Vehicle vehicle) {
         this.vehicle = vehicle;

@@ -15,7 +15,6 @@ public class Vehicle extends Thread {
     private Road currentRoad;
     private boolean closed = false;
     private int type;
-
     private ArrayList<VehicleObserver> observers = new ArrayList<>();
 
     public Vehicle(Simulation simulation) {
@@ -32,15 +31,13 @@ public class Vehicle extends Thread {
     }
 
     public void notifyVehicleRemoved(){
-        for (VehicleObserver v:
-             observers) {
+        for (VehicleObserver v: observers) {
             v.vehicleHasBeenRemoved(this);
         }
     }
 
     public void notifyVehicleMoved(Road newRoad){
-        for (VehicleObserver v :
-                observers) {
+        for (VehicleObserver v : observers) {
             v.vehicleHasMoved(newRoad);
         }
     }
@@ -69,9 +66,10 @@ public class Vehicle extends Thread {
         }
     }
 
+
     private void resolveIntersection() {
-        ArrayList<Road> intersectionsToReserve = loadNecessaryIntersections(); // 4
-        ArrayList<Road> reservedIntersections = attemptToReserveIntersections(intersectionsToReserve); //3
+        ArrayList<Road> intersectionsToReserve = loadNecessaryIntersections();
+        ArrayList<Road> reservedIntersections = attemptToReserveIntersections(intersectionsToReserve);
 
         if (reservedIntersections.size() == intersectionsToReserve.size()) {
             for (Road reservedIntersection : reservedIntersections) {
@@ -81,6 +79,7 @@ public class Vehicle extends Thread {
              releaseRoadList(reservedIntersections);
         }
     }
+
 
     private ArrayList<Road> loadNecessaryIntersections() {
         ArrayList<Road> intersectionsToReserve = new ArrayList<>();

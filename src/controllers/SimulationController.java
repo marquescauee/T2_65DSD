@@ -21,7 +21,7 @@ public class SimulationController implements VehicleObserver {
     private SimulationDTO dto;
     private SimulationView simulationView;
     private boolean closed = false;
-    Simulation simulationModel;
+    private Simulation simulationModel;
 
     public SimulationController(SimulationDTO dto) {
         GridController grid = new GridController(dto);
@@ -77,6 +77,7 @@ public class SimulationController implements VehicleObserver {
         }
         simulationModel.interrupt();
     }
+
 
     public synchronized void updateCell(Road road) {
         this.simulationView.dataChanged(this.vehiclesInQueue.size(), this.vehiclesOnGrid.size() );

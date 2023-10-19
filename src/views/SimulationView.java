@@ -25,14 +25,14 @@ public class SimulationView extends JFrame {
 
     private void renderGridTable(GridTable gridTable) {
         this.gridTable.setModel(gridTable);
-        this.gridTable.setRowHeight(25);
+        this.gridTable.setRowHeight(32);
         this.gridTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         this.gridTable.setIntercellSpacing(new Dimension(0, 0));
         this.gridTable.setDefaultRenderer(Object.class, new GridCellRenderer());
 
         TableColumnModel columnModel = this.gridTable.getColumnModel();
         for (int i = 0; i < columnModel.getColumnCount(); i++) {
-            columnModel.getColumn(i).setMaxWidth(25);
+            columnModel.getColumn(i).setMinWidth(60);
         }
     }
 
