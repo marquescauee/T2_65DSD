@@ -22,7 +22,7 @@ public class Vehicle extends Thread {
         this.simulation = simulation;
         this.route = new ArrayList<>();
         this.roadConnection = simulation.getRoadConnection();
-        this.speed = random.nextInt(100) + 500;
+        this.speed = random.nextInt(100) + 400;
         this.type = random.nextInt(6) + 1;
         this.currentRoad = null;
     }
@@ -101,9 +101,9 @@ public class Vehicle extends Thread {
             } else {
                 this.releaseRoadList(reservedIntersections);
                 try {
-                    sleep(1000);
+                    sleep(200 + random.nextInt(1000));
                 } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+                   // throw new RuntimeException(e);
                 }
                 break;
             }
@@ -259,7 +259,7 @@ public class Vehicle extends Thread {
             Thread.sleep(this.speed);
         } catch (InterruptedException e) {
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            //throw new RuntimeException(e);
         }
     }
 }

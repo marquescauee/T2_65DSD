@@ -40,13 +40,13 @@ public class Road {
             try {
                 acquired = this.lock.tryLock(500, TimeUnit.MILLISECONDS);
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                //throw new RuntimeException(e);
             }
         }else {
             try {
                 acquired = this.semaphore.tryAcquire(500, TimeUnit.MILLISECONDS);
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+               // throw new RuntimeException(e);
             }
         }
         return acquired;
@@ -55,10 +55,16 @@ public class Road {
 
     public void release() {
         //this.method.release();
+        try {
         if(method.equals("Monitor")){
+
             this.lock.unlock();
+
         }else {
             this.semaphore.release();
+        }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
         }
     }
 
