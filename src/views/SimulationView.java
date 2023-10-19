@@ -10,7 +10,6 @@ public class SimulationView extends JFrame {
     private JPanel containerPanel;
     private JTable gridTable;
     private JButton btnClose;
-    private JTextField tfVehiclesInQueue;
     private JTextField tfVehiclesOnGrid;
     private JButton btnStopAndWait;
 
@@ -49,7 +48,6 @@ public class SimulationView extends JFrame {
     }
 
     public void dataChanged(int vehiclesInQueue, int vehiclesOnGrid) {
-        tfVehiclesInQueue.setText("Vehicles to be added: " + vehiclesInQueue);
         tfVehiclesOnGrid.setText("Running Vehicles: " + vehiclesOnGrid);
     }
 

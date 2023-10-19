@@ -12,14 +12,12 @@ public class MainView extends JFrame {
     private JPanel containerPanel;
     private JTextField tfDelayInsertingNewVehicle;
     private JTextField tfMaxVehiclesAtSameTime;
-    private JTextField tfNumVehiclesInSimulation;
     private JButton btnStartSimulation;
     private JRadioButton rbMesh1;
     private JRadioButton rbMesh2;
     private JRadioButton rbMesh3;
     private JLabel lbMaxNumVehiclesOnRoad;
     private JLabel lbDelayInsertNewVehicle;
-    private JLabel lbNumVehiclesInSimulation;
     private JLabel lbChooseMash;
     private JComboBox comboBoxMethod;
 
@@ -31,7 +29,6 @@ public class MainView extends JFrame {
         this.setResizable(false);
         btnStartSimulation.addActionListener((ActionEvent e) -> {
             new SimulationController(new SimulationDTO(
-                    Integer.parseInt(this.tfNumVehiclesInSimulation.getText()),
                     Integer.parseInt(tfDelayInsertingNewVehicle.getText()),
                     this.getSelectedMesh(),
                     Integer.parseInt(tfMaxVehiclesAtSameTime.getText()),

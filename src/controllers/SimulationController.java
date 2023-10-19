@@ -22,6 +22,7 @@ public class SimulationController implements VehicleObserver {
     private SimulationView simulationView;
     private boolean closed = false;
     private Simulation simulationModel;
+    private boolean stopAndWait = false;
 
     public SimulationController(SimulationDTO dto) {
         GridController grid = new GridController(dto);
@@ -91,7 +92,7 @@ public class SimulationController implements VehicleObserver {
 
     public LinkedList<Vehicle> loadVehicles() {
         LinkedList<Vehicle> vehicles = new LinkedList<>();
-        for (int i = 0; i < this.dto.getCarQuantity(); i++) {
+        for (int i = 0; i < this.dto.getmaxCarInMeshQuantitySameTime(); i++) {
             Vehicle v = new Vehicle(simulationModel);
             v.addObserver(this);
             vehicles.add(v);
@@ -108,6 +109,7 @@ public class SimulationController implements VehicleObserver {
     }
 
     public void stopAndWait(){
+        stopAndWait = true;
         for (Vehicle queuedVehicle : this.vehiclesInQueue) {
             queuedVehicle.close();
         }
@@ -117,6 +119,11 @@ public class SimulationController implements VehicleObserver {
     @Override
     public void vehicleHasBeenRemoved(Vehicle vehicle) {
         this.getVehiclesOnGrid().remove(vehicle);
+        if(!this.closed && !stopAndWait){
+            Vehicle v = new Vehicle(simulationModel);
+            v.addObserver(this);
+            simulationModel.addVehicleToQueue(v);
+        }
         updateCell(vehicle.getCurrentRoad());
         if ((this.getVehiclesOnGrid().isEmpty() && this.getVehiclesInQueue().isEmpty() && !this.closed) ) {
             this.close();

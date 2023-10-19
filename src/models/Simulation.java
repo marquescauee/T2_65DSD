@@ -29,21 +29,19 @@ public class Simulation extends Thread{
     @Override
     public void run() {
         while (!this.closed) {
-            while (!this.vehiclesInQueue.isEmpty()) {
-                for (int row = 0; row < this.rowCount; row++) {
-                    for (int col = 0; col < columnCount; col++) {
-                        Road entry = this.getRoadConnection()[col][row];
-                        if (entry.isEntry() && entry.isEmpty() && !this.vehiclesInQueue.isEmpty()
-                                && this.vehiclesOnGrid.size() < maxVehiclesSameTime) {
-                            try {
-                                Vehicle vehicle = this.vehiclesInQueue.remove();
-                                vehicle.setRoute(entry);
-                                this.addVehicleToGrid(vehicle);
-                                vehicle.start();
-                                this.sleepNextVehicle();
-                            } catch (Exception ignored) {
+            for (int row = 0; row < this.rowCount; row++) {
+                for (int col = 0; col < columnCount; col++) {
+                    Road entry = this.getRoadConnection()[col][row];
+                    if (entry.isEntry() && entry.isEmpty() && !this.vehiclesInQueue.isEmpty()
+                            && this.vehiclesOnGrid.size() < maxVehiclesSameTime) {
+                        try {
+                            Vehicle vehicle = this.vehiclesInQueue.remove();
+                            vehicle.setRoute(entry);
+                            this.addVehicleToGrid(vehicle);
+                            vehicle.start();
+                            this.sleepNextVehicle();
+                        } catch (Exception ignored) {
 
-                            }
                         }
                     }
                 }
@@ -73,5 +71,13 @@ public class Simulation extends Thread{
 
     public void setVehiclesOnGrid(ArrayList<Vehicle> vehiclesOnGrid) {
         this.vehiclesOnGrid = vehiclesOnGrid;
+    }
+
+    public void addVehicleToQueue(Vehicle v) {
+        vehiclesInQueue.add(v);
+    }
+
+    public void removeVehicleFromQueue(Vehicle vehicle) {
+        vehiclesInQueue.remove(vehicle);
     }
 }
