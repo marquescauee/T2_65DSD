@@ -1,8 +1,8 @@
 package dto;
 
-import models.Method;
-import models.MonitorMethod;
-import models.SemaphoreMethod;
+import dependency_injection.Method;
+import dependency_injection.MonitorMethod;
+import dependency_injection.SemaphoreMethod;
 
 public class SimulationDTO {
     private int carQuantity;

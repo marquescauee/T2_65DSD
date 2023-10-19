@@ -1,8 +1,8 @@
-package models;
+package dependency_injection;
 
 import java.util.concurrent.TimeUnit;
 
-public interface Method {
+public interface Method{
     boolean tryAcquire(int i, TimeUnit timeUnit);
     void release();
 }

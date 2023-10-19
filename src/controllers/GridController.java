@@ -1,7 +1,6 @@
 package controllers;
 
 import dto.SimulationDTO;
-import models.Method;
 import models.Road;
 import views.GridTable;
 
