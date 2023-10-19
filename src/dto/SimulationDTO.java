@@ -1,9 +1,5 @@
 package dto;
 
-import dependency_injection.Method;
-import dependency_injection.MonitorMethod;
-import dependency_injection.SemaphoreMethod;
-
 public class SimulationDTO {
     private int insertionInterval;
     private String meshFileName;
