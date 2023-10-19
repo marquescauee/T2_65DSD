@@ -21,6 +21,7 @@ public class MainView extends JFrame {
     private JLabel lbDelayInsertNewVehicle;
     private JLabel lbNumVehiclesInSimulation;
     private JLabel lbChooseMash;
+    private JComboBox comboBoxMethod;
 
     public MainView() {
         super.setSize(new Dimension(800, 400));
@@ -33,7 +34,8 @@ public class MainView extends JFrame {
                     Integer.parseInt(this.tfNumVehiclesInSimulation.getText()),
                     Integer.parseInt(tfDelayInsertingNewVehicle.getText()),
                     this.getSelectedMesh(),
-                    Integer.parseInt(tfMaxVehiclesAtSameTime.getText())
+                    Integer.parseInt(tfMaxVehiclesAtSameTime.getText()),
+                    (String) comboBoxMethod.getSelectedItem()
             ));
             super.dispose();
         });

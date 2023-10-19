@@ -1,6 +1,7 @@
 package controllers;
 
 import dto.SimulationDTO;
+import models.Method;
 import models.Road;
 import views.GridTable;
 
@@ -12,9 +13,11 @@ public class GridController {
 
     private GridTable gridTable;
     private RoadController roadController;
+    private Method method;
 
     public GridController(SimulationDTO simulationDTO){
         gridTable = new GridTable(simulationDTO.getMeshFileName());
+        method = simulationDTO.getMethod();
         createMatrix();
     }
 
@@ -34,7 +37,7 @@ public class GridController {
             for (int row = 0; row < gridTable.getRows(); row++) {
                 for (int column = 0; column < gridTable.getColumns(); column++) {
                     int direction = scanner.nextInt();
-                    Road road = new Road(column, row, direction);
+                    Road road = new Road(column, row, direction, method);
                     if (road.isRoad()) {
                         roadController = new RoadController(road, gridTable);
                         roadController.defineEntryOrExit(gridTable);

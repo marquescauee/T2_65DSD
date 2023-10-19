@@ -5,7 +5,10 @@
     <constraints>
       <xy x="20" y="20" width="604" height="431"/>
     </constraints>
-    <properties/>
+    <properties>
+      <background color="-15261653"/>
+      <foreground color="-15653824"/>
+    </properties>
     <border type="none"/>
     <children>
       <component id="eda2f" class="javax.swing.JTable" binding="gridTable">

@@ -7,7 +7,7 @@ import java.util.concurrent.TimeUnit;
 public class Road {
 
     private static final String ICONS_PATH = Paths.get("").toAbsolutePath() + "/src/icons/";
-    protected Semaphore semaphore;
+    //protected Semaphore semaphore;
     protected String iconDirectory;
     protected boolean entry;
     protected boolean exit;
@@ -15,28 +15,26 @@ public class Road {
     protected Vehicle vehicle;
     protected int row;
     protected int column;
+    private Method method;
 
-    public Road(int row, int column, int type) {
+    public Road(int row, int column, int type, Method method) {
         this.vehicle = null;
         this.type = type;
         this.row = row;
         this.column = column;
-        this.semaphore = new Semaphore(1);
+        this.method = method;
         this.defineCurrentIcon();
     }
 
     public boolean tryAcquire() {
         boolean acquired = false;
-        try {
-            acquired = this.semaphore.tryAcquire(500, TimeUnit.MILLISECONDS);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        acquired = this.method.tryAcquire(500, TimeUnit.MILLISECONDS);
         return acquired;
     }
 
+
     public void release() {
-        this.semaphore.release();
+        this.method.release();
     }
 
     public void addVehicle(Vehicle vehicle) {

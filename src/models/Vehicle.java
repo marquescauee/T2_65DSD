@@ -70,8 +70,8 @@ public class Vehicle extends Thread {
     }
 
     private void resolveIntersection() {
-        ArrayList<Road> intersectionsToReserve = loadNecessaryIntersections();
-        ArrayList<Road> reservedIntersections = attemptToReserveIntersections(intersectionsToReserve);
+        ArrayList<Road> intersectionsToReserve = loadNecessaryIntersections(); // 4
+        ArrayList<Road> reservedIntersections = attemptToReserveIntersections(intersectionsToReserve); //3
 
         if (reservedIntersections.size() == intersectionsToReserve.size()) {
             for (Road reservedIntersection : reservedIntersections) {
@@ -100,6 +100,11 @@ public class Vehicle extends Thread {
                 reservedIntersections.add(intersectionToReserve);
             } else {
                 this.releaseRoadList(reservedIntersections);
+                try {
+                    sleep(1000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
                 break;
             }
         }
